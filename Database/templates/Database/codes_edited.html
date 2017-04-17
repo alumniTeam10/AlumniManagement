@@ -1,0 +1,212 @@
+
+{% load staticfiles %}
+
+<!DOCTYPE html>
+
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>IIIT-H</title>
+{#    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">#}
+<!--css-->
+<link href="{% static 'AlumniManagement/css/bootstrap.css' %}" rel="stylesheet" type="text/css" media="all">
+<link href="{% static 'AlumniManagement/css/style.css' %}" rel="stylesheet" type="text/css" media="all">
+<!--css-->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="keywords" content="Studies Plus Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola web design">
+
+
+    <!--js-->
+<script type="text/javascript" src="{% static 'AlumniManagement/js/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'AlumniManagement/js/bootstrap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'AlumniManagement/js/bootstrap-dropdown.js' %}"></script>
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); }; function d(){('.dropdown-toggle').dropdown();} </script>
+
+<!--js-->
+<!--webfonts-->
+<link href="file://fonts.googleapis.com/css?family=Cagliostro" rel="stylesheet" type="text/css">
+<link href="file://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic" rel="stylesheet" type="text/css">
+<!--webfonts-->
+</head>
+<body>
+	<!--header-->
+		<div class="header">
+			
+			<div class="container">
+				<nav class="navbar navbar-default">
+					<div class="container-fluid">
+                        <!---Brand and toggle get grouped for better mobile display--->
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+							<div class="navbar-brand">
+                                <a href="{% url 'home'%}" class="navbar-left" ><img align="left" src="{% static 'AlumniManagement/images/iiit-logo.png' %}" style="max-width:150px; margin-top: -7px;"></a></h1>
+							</div>
+						</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+{#							<nav class="link-effect-2" id="link-effect-2">#}
+                            <ul class="nav navbar-nav">
+                                <li><a href="{% url 'home'%}"><span data-hover="Home">Home</span></a></li>
+									 <li class="dropdown ">
+                                         <a href="{% url 'connect' 'student'%}" class="dropdown-toggle" data-hover="Connect" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Connect<span class="caret"></span></a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="{% url 'connect' 'alumni'%}">Alumni</a></li>
+                          						 <li><a href="{% url 'connect' 'student'%}">Student</a></li>
+                                                 <li><a href="{% url 'connect' 'faculty'%}">Faculty</a></li>
+                                            </ul>
+									</li>
+
+                                    <li class="dropdown ">
+                                         <a href="{% url 'viewOpportunities'%}" class="dropdown-toggle" data-hover="Opportunities" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Opportunities<span class="caret"></span></a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="{% url 'viewOpportunities'%}">View Opportunities</a></li>
+                          						 <li><a href="{% url 'postOpportunity'%}">Post Opportunities</a></li>
+                                            </ul>
+									</li>
+
+
+
+{#									<li><a href="{% url 'view' %}"><span data-hover="Profile">Profile</span></a></li>#}
+
+									 <li class="dropdown ">
+                                         <a href="{% url 'view-event'%}" class="dropdown-toggle" data-hover="Events" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Events<span class="caret"></span></a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="{% url 'view-event'%}">View Event</a></li>
+
+                          						 <li><a href="{% url 'event-add'%}">Post Event</a></li>
+
+                                            </ul>
+									</li>
+ 									{% if request.user.user_type_flag == 'admin' %}
+									 <li class="dropdown ">
+                                         <a href="{% url 'view-news'%}" class="dropdown-toggle" data-hover="News" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">News<span class="caret"></span></a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="{% url 'view-news'%}">View News</a></li>
+                          						 <li><a href="{% url 'event-add'%}">Post News</a></li>
+
+                                            </ul>
+									</li>
+								{% endif %}
+
+                                    <li class="dropdown ">
+                                         <a href="{% url 'viewComplaints'%}" class="dropdown-toggle" data-hover="Complaints" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Complaints<span class="caret"></span></a>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="{% url 'viewComplaints'%}">View my Complaints</a></li>
+                          						 <li><a href="{% url 'postComplaint'%}">Post Complaints</a></li>
+                                            </ul>
+									</li>
+                                    <li><a href="{% url 'about' %}"><span data-hover="About">About</span></a></li>
+									<li><a href="{% url 'contact_us' %}"><span data-hover="Contact Us">Contact Us</span></a></li>
+
+                                    {% if request.user.is_authenticated %}
+                                        <li >
+                                         <a href="{% url 'logout'%}" class="dropdown-toggle" data-hover="{{ request.user.first_name }}" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-user"></i>{{ request.user.first_name }}<span class="caret"></span></a>
+                                            <ul class="dropdown-menu">
+
+                                        <ul> <a href="" class="dropdown-toggle" data-hover="User" >Manage Profile<span class="caret"></span></a></ul>
+
+										  <li><a href="{% url  'view-users'%}">View Profiles</a></li>
+												<li><a href="{% url 'listContacts' %}"><span data-hover="My Contacts">My Contacts</span></a></li>
+												 <li><a href="{% url 'UserUpdate' user.id %}">Edit Profile</a></li>
+
+                          						 <li><a href="{% url 'logout'%}">logout</a></li>
+                                            </ul>
+											</ul>
+									</li>
+                                    {% else %}
+                                        <li><a href="{% url 'login' %}"><span data-hover="About"><i class="glyphicon glyphicon-user"></i>Login</span></a></li>
+                                    {% endif %}
+
+                            </ul>
+						</div>
+					</div>
+				</nav>
+			</div>
+		</div>
+	<!--header-->
+		<div class="banner-w3agile">
+			<div class="container">
+				
+			</div>
+		</div>
+		<!--content-->
+		<div class="content">
+			<!--typography-page -->
+				<div class="typo-w3">
+					<div class="container">
+
+						{% block content %}
+						
+						{% endblock %}
+
+                    </div>
+				</div>
+			<!-- //typography-page -->
+
+		</div>
+		<!--content-->
+
+		<!--footer-->
+			<div class="footer-w3">
+				<div class="container">
+					<div class="footer-grids">
+						<div class="col-md-4 footer-grid">
+							<h4>About Us</h4>
+							<p><span>The International Institute of Information Technology, Hyderabad (IIIT-H) is an autonomous university founded in 1998. It was set up as a not-for-profit public private partnership (N-PPP) and is the first IIIT to be set up under this model in India. A Governing Council consisting of eminent people from academia, industry and government presides over the governance of the institution.</span></p>
+						</div>
+						<div class="col-md-4 footer-grid">
+						<h4>Life at IIIT-H</h4>
+							<div class="footer-grid1">
+								<img src="{% static 'AlumniManagement/images/college.jpg' %}" alt=" " class="img-responsive">
+							</div>
+							<div class="footer-grid1">
+								<img src="{% static 'AlumniManagement/images/obh-thumb.jpg' %}" alt=" " class="img-responsive">
+							</div>
+							<div class="footer-grid1">
+								<img src="{% static 'AlumniManagement/images/interaction-thumb.jpg' %}" alt=" " class="img-responsive">
+							</div>
+							<div class="footer-grid1">
+								<img src="{% static 'AlumniManagement/images/lecture-thumb.jpg' %}" alt=" " class="img-responsive">
+							</div>
+							<div class="footer-grid1">
+								<img src="{% static 'AlumniManagement/images/c3.jpg' %}" alt=" " class="img-responsive">
+							</div>
+							<div class="footer-grid1">
+								<img src="{% static 'AlumniManagement/images/banyan-tree-thumb.jpg' %}" alt=" " class="img-responsive">
+							</div>
+							<div class="clearfix"> </div>
+						</div>
+						<div class="col-md-4 footer-grid">
+						<h4>Information</h4>
+							<ul>
+								<li><i class="glyphicon glyphicon-map-marker" aria-hidden="true"></i>Gachibowli, Hyderabad 500 032, India</li>
+								<li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i>+91-40-6653 1000</li>
+								<li><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i><a href="mailto: alumni_relations@iiith.edu"> alumni_relations@iiith.edu</a></li>
+								<li><i class="glyphicon glyphicon-time" aria-hidden="true"></i>Mon-Sat 9:00 am to 4:00 pm</li>
+							</ul>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+			</div>
+		<!--footer-->
+		<!---copy--->
+				<div class="copy-section">
+				<div class="container">
+					<div class="social-icons">
+						<a href="https://www.facebook.com/pages/International-Institute-of-Information-Technology-Hyderabad/103767139662322?rf=159756897414001"><i class="icon1"></i></a>
+						<a href="https://plus.google.com/+IIITHHyderabad"><i class="icon3"></i></a>
+						<a href="https://www.linkedin.com/groups/61903/profile"><i class="icon4"></i></a>
+					</div>
+                </div>
+			</div>
+			<!---copy--->
+
+</body>
+</html>

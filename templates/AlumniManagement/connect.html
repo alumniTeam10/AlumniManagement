@@ -1,0 +1,9 @@
+{% extends './connectBase.html' %}
+
+{% block url1 %}
+    {% url 'search' type_of_user%}
+{% endblock %}
+
+{% block url2 %}
+    {% url 'view' type_of_user%}
+{% endblock %}

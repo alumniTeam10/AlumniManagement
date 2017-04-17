@@ -1,0 +1,226 @@
+{% extends './codes_edited.html' %}
+{% block content %}
+
+    {% if user_data %}
+                {% for data,connection in user_data %}
+                        <div>
+                            <div class="col-sm-2">
+                                <img src="{{ data.user_id.profile_dp.url }}" alt="Smiley face" height="150" width="125">
+                            </div>
+                            <div class="col-sm-4 container">
+                                <table class="table tab-content">
+                                    <tr>
+                                        <td>
+                                            <h5>
+                                                <b class="text-primary">
+                                                    Name:
+                                                </b>
+                                                {{ data.user_id.first_name }} {{ data.user_id.last_name }}
+                                            </h5>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h5>
+                                                <b class="text-primary">
+                                                    Email-Id:
+                                                </b>
+                                                {{ data.user_id.email }}
+                                            </h5>
+                                        </td>
+                                    </tr>
+
+                                    {% if type_of_user == 'student' %}
+                                        <tr>
+                                            <td>
+                                                <h5>
+                                                    <b class="text-primary">
+                                                        Course:
+                                                    </b>
+                                                    {{ data.course_name }}
+                                                </h5>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <h5>
+                                                    <b class="text-primary">
+                                                        Branch:
+                                                    </b>
+                                                    {{ data.branch_name }}
+                                                </h5>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <h5>
+                                                    <b class="text-primary">
+                                                        Admission Date:
+                                                    </b>
+                                                    {{ data.admission_date }}
+                                                </h5>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <h5>
+                                                    <b class="text-primary">
+                                                        Department:
+                                                    </b>
+                                                    {{ data.department_name }}
+                                                </h5>
+
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+
+                                    {% if type_of_user == 'alumni' %}
+                                        <tr>
+                                            <td>
+                                                <h5>
+                                                    <b class="text-primary">
+                                                        Course:
+                                                    </b>
+                                                    {{ data.course_name }}
+                                                </h5>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <h5>
+                                                    <b class="text-primary">
+                                                        Branch:
+                                                    </b>
+                                                    {{ data.branch_name }}
+                                                </h5>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <h5>
+                                                    <b class="text-primary">
+                                                        Admission Date:
+                                                    </b>
+                                                    {{ data.admission_date }}
+                                                </h5>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td>
+                                                <h5>
+                                                    <b class="text-primary">
+                                                        Passout Date:
+                                                    </b>
+                                                    {{ data.passout_date }}
+                                                </h5>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <h5>
+                                                    <b class="text-primary">
+                                                        Department:
+                                                    </b>
+                                                    {{ data.department_name }}
+                                                </h5>
+
+                                            </td>
+                                        </tr>
+
+                                    {% endif %}
+
+                                    {% if type_of_user == 'faculty' %}
+                                        <tr>
+                                           <td>
+                                                <h5>
+                                                    <b class="text-primary">
+                                                        Department:
+                                                    </b>
+                                                    {{ data.department_name }}
+                                                </h5>
+
+                                            </td>
+                                        </tr>
+
+                                    {% endif %}
+
+                                    {% if type_of_user == 'alumni' or type_of_user == 'faculty' %}
+                                        {% if type_of_user == 'alumni' %}
+                                            <tr>
+                                                <td>
+                                                    <h5>
+                                                        <b class="text-primary">
+                                                            Current Organization:
+                                                        </b>
+                                                        {{ data.current_organization_name }}
+                                                    </h5>
+
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <h5>
+                                                        <b class="text-primary">
+                                                            Designation:
+                                                        </b>
+                                                        {{ data.designation }}
+                                                    </h5>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>
+                                                    <h5>
+                                                        <b class="text-primary">
+                                                            Role:
+                                                        </b>
+                                                        {{ data.role }}
+                                                    </h5>
+
+                                                </td>
+                                            </tr>
+                                        {% endif %}
+
+                                        {% if type_of_user == 'faculty' %}
+                                            <tr>
+                                                <td>
+                                                    <h5>
+                                                        <b class="text-primary">
+                                                            Designation:
+                                                        </b>
+                                                        {{ data.designation }}
+                                                    </h5>
+                                                </td>
+                                            </tr>
+                                        {% endif %}
+
+
+                                    {% endif %}
+                                </table>
+                            </div>
+                            <div>
+                                {% if connection == 0 %}
+                                        <form action="{% url 'add_to_contacts' type_of_user%}" method="post" class="btn-group">
+                                            {% csrf_token %}
+                                            <button id="addToContact" name="add" type="submit" value="{{ data.user_id.username }}" class="btn btn-info" >Add to Contact</button>
+                                        </form>
+                                    {% else%}
+                                        <form action="{% url 'delete_contact' type_of_user%}" method="post" class="btn-group">
+                                            {% csrf_token %}
+                                            <button id="unfollow" name="unfollow" type="submit" value="{{ data.user_id.username }}" class="btn btn-info" >Unfollow</button>
+                                        </form>
+                                {% endif %}
+                            </div>
+                        </div>
+
+
+                {% endfor %}
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends './codes_edited.html' %}
+
+{% block content %}
+
+
+    <div>
+        <h2 class="tittle text-center text-primary">News</h2>
+    </div>
+
+    <div style="margin-bottom: 1%">
+        <form action="{% url 'eventSearch' %}" method="get" class="navbar-form navbar-right">
+            <div class="form-group">
+                <input  id="search_box" type="text" name="search_box"  placeholder="Search..." class="form-control" >
+            </div>
+            <button id="search_submit" type="submit" class="btn btn-default">Submit</button>
+        </form>
+    </div>
+
+
+    {% if news_name %}
+        <div class="container">
+            <table class="table table-hover table-bordered">
+                <div>
+                    {%  for news in news_name %}
+                        <tr>
+                            <td class="col-sm-3 text-info">
+                                    <p>
+                                        <h5>{{ news.name }}</h5>
+                                    </p>
+                            </td>
+                            <td class="col-sm-3 text-info">
+                                    <p>
+                                        <h5>{{ news.info }}</h5>
+                                    </p>
+                            </td>
+
+
+                            <td class="text-info">
+                                <p>
+                                    <h5>
+                                <b class="text-primary">Created By - </b>
+                                        {% if news.createdBy %}
+                                            {{ news.createdBy }}
+                                        {% else %}
+                                            N/A
+                                        {% endif %}
+                                    </h5>
+                                </p>
+
+                                <br>
+
+                                <p>
+                                    <h5>
+                                <b class="text-primary">Updated Date - </b>
+                                        {% if news.updated_date  %}
+                                            {{ news.updated_date }}
+                                        {% else %}
+                                            N/A
+                                        {% endif %}
+                                    </h5>
+                                </p>
+
+                                <br>
+
+                                <h5>
+                                    <b class="text-primary">Event News Flag - </b>
+                                    {{ news.event_news_flag }}
+                                </h5>
+
+                                <br>
+                            </td>
+
+                            <td >
+                                <div>
+
+
+                                    {% if request.user.user_type_flag == 'admin'%}
+                                        <form action="{% url 'UpdateEvent' news.id %}" method="get"  class="col-xs-4">
+                                            <button id="edit_submit" type="submit" class="btn btn-info">Edit</button>
+                                        </form>
+                                        <form action="{% url 'deleteEvent' news.id %}" method="get"  class="col-xs-4">
+                                            <button id="delete_submit" type="submit" class="btn btn-info">Delete</button>
+                                        </form>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+
+
+                        </div>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <h4>No News to show</h4>
+    {% endif %}
+
+
+
+{% endblock %}

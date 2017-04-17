@@ -1,0 +1,47 @@
+{% extends './codes_edited.html' %}
+
+{% block content %}
+<div class="container">
+<h1 class="text-primary">Welcome to Users Page</h1>
+
+
+
+
+    {% if user_name %}
+  <div class="panel panel-default">
+
+     <table class="table">
+         <div class="panel-heading">List of Users:
+        <thread>
+            <th>Username</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>email address</th>
+            <th>Phone Number</th>
+            <th>Type of User</th>
+        </thread>
+        <div class="panel-body">
+        {% for user in user_name %}
+        <tr>
+
+            <td>{{user.username}}</td>
+            <td>{{user.first_name}}</td>
+            <td>{{user.last_name}}</td>
+            <td>{{user.email}}</td>
+            <td>{{user.phone_number}}</td>
+            <td>{{user.user_type_flag}}</td>
+
+
+        </tr>
+        {% endfor %}
+        </div>
+             </div>
+     </table>
+
+  </div>
+    {% else %}
+        <p>No Users</p>
+    {% endif %}
+  </div>
+
+{% endblock %}

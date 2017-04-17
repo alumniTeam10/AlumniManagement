@@ -1,0 +1,117 @@
+{% extends './codes_edited.html' %}
+
+{% block content %}
+    <div>
+        <h1 class="text-center text-primary">Job Details</h1>
+    </div>
+
+    <div class="container">
+	    <table class="table table-hover">
+		    <tbody>
+                <tr>
+                    <td class="col-sm-3">
+                        <h4 class="text-info">Job Description</h4>
+                    </td>
+                    <td class="text-info">
+                            <p>
+                                <h5>{{ opportunity.opportunity_info }}</h5>
+                            </p>
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-sm-3">
+                        <h4 class="text-info">Number of Vacancy</h4>
+                    </td>
+                    <td class="text-info">
+                            <p>
+                                <h5>
+                                    {% if opportunity.number_of_vacancy != 0 %}
+                                        {{ opportunity.number_of_vacancy }}
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </h5>
+                            </p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-sm-3">
+                        <h4 class="text-info">Expiration Date</h4>
+                    </td>
+                    <td class="text-info">
+                            <p>
+                                <h5>
+                                    {% if opportunity.expiration_date  %}
+                                        {{ opportunity.expiration_date }}
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </h5>
+                            </p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-sm-3">
+                        <h4 class="text-info">Posted by</h4>
+                    </td>
+                    <td class="text-info">
+                            <p>
+                                <h5>
+                                        {{ opportunity.posted_by.first_name }}
+                                        {{ opportunity.posted_by.last_name }}
+                                </h5>
+                            </p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-sm-3">
+                        <h4 class="text-info">Email-id</h4>
+                    </td>
+                    <td class="text-info">
+                            <p>
+                                <h5>
+                                        {{ opportunity.posted_by.email }}
+                                </h5>
+                            </p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-sm-3">
+                        <h4 class="text-info">Posted on</h4>
+                    </td>
+                    <td class="text-info">
+                            <p>
+                                <h5>
+                                        {{ opportunity.create_date }}
+                                </h5>
+                            </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sm-3">
+
+                    </td>
+                    <td>
+                        {% if request.user.pk == opportunity.posted_by.pk %}
+                            <form action="{% url 'updateOpportunity' opportunity.id %}" method="get"  class="col-sm-1">
+                                            <button id="edit_submit" type="submit" class="btn btn-info">Edit</button>
+                            </form>
+                            <form action="{% url 'deleteOpportunity' opportunity.id %}" method="get" class="col-sm-1">
+                                <button id="search_submit" type="submit" class="btn btn-info">Delete</button>
+                            </form>
+                    {% endif %}
+                    </td>
+
+                </tr>
+
+            </tbody>
+		</table>
+	</div>
+
+{% endblock %}

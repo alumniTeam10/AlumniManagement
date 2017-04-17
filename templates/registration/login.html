@@ -1,0 +1,16 @@
+{% extends '../AlumniManagement/codes_edited.html' %}
+
+{#{% block title %}Login{% endblock %}#}
+
+{% block content %}
+    <div>
+        <h2>Login</h2>
+          <form method="post" class="form-horizontal">
+            {% csrf_token %}
+            {{ form.as_p }}
+              <br>
+            <button type="submit" class="button">Login</button>
+          </form>
+    </div>
+
+{% endblock %}

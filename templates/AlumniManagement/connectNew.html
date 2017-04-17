@@ -1,0 +1,191 @@
+{% extends './codes_edited.html' %}
+
+{% block content %}
+
+    <div>
+        <h1 class="text-primary text-center text-capitalize"> {{ type_of_user }} Details</h1>
+    </div>
+    <div>
+        <form action="{% url 'search' type_of_user%}" method="get" style="margin: 0" class="navbar-form navbar-right">
+            <div class="form-group">
+                <input  id="search_box" type="text" name="search_box"  placeholder="Search..." class="form-control" >
+            </div>
+            <button id="search_submit" type="submit" class="btn btn-default">Submit</button>
+        </form>
+    </div>
+
+{#    <h1>{% url 'search_student' %}</h1>#}
+
+    <div class="grid_3 grid_4">
+        {% if all_data %}
+                <table class="table table-striped">
+                    {% for data,connection in all_data %}
+                        <tr>
+                            <td>
+                                <img src="{{ data.user_id.profile_dp.url }}" alt="Smiley face" height="100" width="80">
+                            </td>
+                            <td>
+                                <h5>
+                                    <b class="text-primary">Name: </b>
+                                    {{ data.user_id.first_name }} {{ data.user_id.last_name }}
+                                </h5>
+
+                                <br/>
+
+                                <h5>
+                                    <b class="text-primary">Email-Id:</b>
+                                    {{ data.user_id.email }}
+                                </h5>
+
+                                <br/>
+                            </td>
+
+                            <td>
+                                {% if type_of_user == 'student' %}
+
+                                    <h5>
+                                        <b class="text-primary">Course:</b>
+                                        {{ data.course_name }}
+                                    </h5>
+
+                                    <br/>
+
+                                    <h5>
+                                        <b class="text-primary">Branch:</b>
+                                        {{ data.branch_name }}
+                                    </h5>
+
+                                    <br/>
+
+                                    <h5>
+                                        <b class="text-primary">Admission Date:</b>
+                                        {{ data.admission_date }}
+                                    </h5>
+
+                                    <br/>
+
+                                    <h5>
+                                        <b class="text-primary">Department:</b>
+                                        {{ data.department_name }}
+                                    </h5>
+
+                                    <br/>
+                                {% endif %}
+
+                                {% if type_of_user == 'alumni' %}
+
+                                    <h5>
+                                        <b class="text-primary">Course:</b>
+                                        {{ data.course_name }}
+                                    </h5>
+
+                                    <br/>
+
+                                    <h5>
+                                        <b class="text-primary">Branch:</b>
+                                        {{ data.branch_name }}
+                                    </h5>
+                                    <br>
+
+                                    <h5>
+                                        <b class="text-primary">Admission Date:</b>
+                                        {{ data.admission_date }}
+                                    </h5>
+                                    <br/>
+
+
+                                    <h5>
+                                        <b class="text-primary">Passout Date:</b>
+                                        {{ data.passout_date }}
+                                    </h5>
+
+                                    <br/>
+
+                                    <h5>
+                                        <b class="text-primary">Department:</b>
+                                        {{ data.department_name }}
+                                    </h5>
+
+                                    <br/>
+                                {% endif %}
+
+                                {% if type_of_user == 'faculty' %}
+                                    <h5>
+                                        <b class="text-primary">Department:</b>
+                                        {{ data.department_name }}
+                                    </h5>
+                                    <br/>
+
+                                {% endif %}
+
+                            </td>
+
+                            {% if type_of_user == 'alumni' or type_of_user == 'faculty' %}
+                                <td>
+
+                                    {% if type_of_user == 'alumni' %}
+
+                                        <h5>
+                                            <b class="text-primary">Current Organization:</b>
+                                            {{ data.current_organization_name }}
+                                        </h5>
+                                        <br/>
+
+                                        <h5>
+                                            <b class="text-primary">Designation:</b>
+                                            {{ data.designation }}
+                                        </h5>
+                                        <br/>
+
+                                        <h5>
+                                            <b class="text-primary">Role:</b>
+                                            {{ data.role }}
+                                        </h5>
+
+                                        <br/>
+                                    {% endif %}
+
+                                    {% if type_of_user == 'faculty' %}
+                                        <h5>
+                                            <b class="text-primary">Designation:</b>
+                                            {{ data.designation }}
+                                        </h5>
+
+                                        <br/>
+                                    {% endif %}
+
+                                </td>
+                            {% endif %}
+
+                            <td>
+                                <div class="btn-group-sm">
+                                    <form action="{% url 'view' type_of_user%}" method="post"  class="btn-group">
+                                        {% csrf_token %}
+                                        <button id="view" name="view" type="submit" value="{{ data.user_id }}" class="btn btn-info" >View</button>
+                                    </form>
+                                    {% if connection == 0 %}
+                                        <form action="{% url 'add_to_contacts' type_of_user%}" method="post" class="btn-group">
+                                            {% csrf_token %}
+                                            <button id="addToContact" name="add" type="submit" value="{{ data.user_id.username }}" class="btn btn-info" >Add to Contact</button>
+                                        </form>
+                                    {% else%}
+                                        <form action="{% url 'delete_contact' type_of_user%}" method="post" class="btn-group">
+                                            {% csrf_token %}
+                                            <button id="unfollow" name="unfollow" type="submit" value="{{ data.user_id.username }}" class="btn btn-info" >Unfollow</button>
+                                        </form>
+
+                                    {% endif %}
+                                </div>
+                            </td>
+
+                          </tr>
+
+                    {% endfor %}
+                </table>
+        {% else %}
+            <h2>No Data to show</h2>
+        {% endif %}
+    </div>
+
+
+{% endblock %}

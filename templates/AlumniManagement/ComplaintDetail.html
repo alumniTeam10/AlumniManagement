@@ -1,0 +1,117 @@
+{% extends './codes_edited.html' %}
+
+{% block content %}
+    <div>
+        <h1 class="text-center text-primary">Complaint Details</h1>
+    </div>
+
+    <div class="container">
+	    <table class="table table-hover">
+		    <tbody>
+                <tr>
+                    <td class="col-sm-3">
+                        <h4 class="text-info">Complaint Info</h4>
+                    </td>
+                    <td class="text-info">
+                            <p>
+                                <h5>{{ complaint.complaint_info }}</h5>
+                            </p>
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-sm-3">
+                        <h4 class="text-info">Solution Info</h4>
+                    </td>
+                    <td class="text-info">
+                            <p>
+                                <h5>
+                                    {% if complaint.solution_info %}
+                                        {{ complaint.solution_info }}
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </h5>
+                            </p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-sm-3">
+                        <h4 class="text-info">Created By</h4>
+                    </td>
+                    <td class="text-info">
+                            <p>
+                                <h5>
+                                    {% if complaint.created_by  %}
+                                        {{ complaint.created_by }}
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </h5>
+                            </p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-sm-3">
+                        <h4 class="text-info">Creation date</h4>
+                    </td>
+                    <td class="text-info">
+                            <p>
+                                <h5>
+                                        {{ complaint.created_date }}
+
+                                </h5>
+                            </p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-sm-3">
+                        <h4 class="text-info">Email-id</h4>
+                    </td>
+                    <td class="text-info">
+                            <p>
+                                <h5>
+                                        {{ complaint.created_by.email }}
+                                </h5>
+                            </p>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-sm-3">
+                        <h4 class="text-info">Posted on</h4>
+                    </td>
+                    <td class="text-info">
+                            <p>
+                                <h5>
+                                        {{ complaint.created_date }}
+                                </h5>
+                            </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-sm-3">
+
+                    </td>
+                    <td>
+                        {% if request.user.pk == complaint.created_by.pk %}
+                            <form action="{% url 'updateComplaint' complaint.id %}" method="get"  class="col-sm-1">
+                                            <button id="edit_submit" type="submit" class="btn btn-info">Edit</button>
+                            </form>
+                            <form action="{% url 'deleteComplaint' complaint.id %}" method="get" class="col-sm-1">
+                                <button id="search_submit" type="submit" class="btn btn-info">Delete</button>
+                            </form>
+                    {% endif %}
+                    </td>
+
+                </tr>
+
+            </tbody>
+		</table>
+	</div>
+
+{% endblock %}

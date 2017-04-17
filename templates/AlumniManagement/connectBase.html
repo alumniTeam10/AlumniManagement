@@ -1,0 +1,90 @@
+{% extends './codes_edited.html' %}
+
+{% block content %}
+    <div>
+        <h2 class="tittle text-capitalize"> {{ type_of_user }} Details</h2>
+    </div>
+    <div>
+        <form action="{% block url1 %}{% endblock %}" method="get" style="margin: 0" class="navbar-form navbar-right">
+            <div class="form-group">
+                <input  id="search_box" type="text" name="search_box"  placeholder="Search..." class="form-control" >
+            </div>
+            <button id="search_submit" type="submit" class="btn btn-default">Submit</button>
+        </form>
+    </div>
+
+{#    <h1>{% url 'search_student' %}</h1>#}
+
+    <div class="grid_3 grid_4">
+        {% if all_data %}
+            <form action="{% block url2 %}{% endblock %}" method="post" style="margin: 0" class="form">
+                {% csrf_token %}
+                <table class="table table-striped">
+                    {% for data,connection in all_data %}
+                        <tr>
+                            <td>
+                                Name :-  {{ data.user_id.first_name }} {{ data.user_id.last_name }} <br/>
+                                Email :-  {{ data.user_id.email }} <br/>
+
+                            </td>
+                            <td>
+                                {% if type_of_user == 'student' %}
+                                    Course :- {{ data.course_name }} <br/>
+                                    Branch :- {{ data.branch_name }} <br/>
+                                    Admission Date :- {{ data.admission_date }} <br/>
+                                    Department :- {{ data.department_name }} <br/>
+                                {% endif %}
+
+                                {% if type_of_user == 'alumni' %}
+                                    Course :- {{ data.course_name }} <br/>
+                                    Branch :- {{ data.branch_name }} <br/>
+                                    Admission Date :- {{ data.admission_date }} <br/>
+                                    Passout Date :- {{ data.passout_date }} <br/>
+                                    Department :- {{ data.department_name }} <br/>
+                                {% endif %}
+
+                                {% if type_of_user == 'faculty' %}
+                                    Department :- {{ data.department_name }} <br/>
+                                {% endif %}
+
+                            </td>
+
+                            {% if type_of_user == 'alumni' or type_of_user == 'faculty' %}
+                                <td>
+
+                                    {% if type_of_user == 'alumni' %}
+                                        Current Organization :- {{ data.current_organization_name }} <br/>
+                                        Designation :- {{ data.designation }} <br/>
+                                        Role :- {{ data.role }} <br/>
+                                    {% endif %}
+
+                                    {% if type_of_user == 'faculty' %}
+                                        Designation :- {{ data.designation }} <br/>
+                                    {% endif %}
+
+                                </td>
+                            {% endif %}
+
+                            <td>
+                                <div>
+                                    <button id="view" name="view" type="submit" value="{{ data.user_id }}" class="btn btn-info" >View</button>
+                                    {% if connection == 0 %}
+                                        <button id="addToContact" name="add" type="submit" value="{{ data.user_id.username }}" class="btn btn-info" >Add to Contact</button>
+                                    {% else%}
+                                        <button id="unfollow" name="unfollow" type="submit" value="{{ data.user_id.username }}" class="btn btn-info" >Unfollow</button>
+                                    {% endif %}
+                                </div>
+                            </td>
+
+                          </tr>
+
+                    {% endfor %}
+                </table>
+            </form>
+        {% else %}
+            <h2>No Data to show</h2>
+        {% endif %}
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends './codes_edited.html' %}
+
+{% block content %}
+<body>
+<h1>Fill out the form</h1>
+ <div class="container">
+     <form method="POST">
+         {{form.as_p}}
+         {% csrf_token %}
+         <input type="submit" name="btn btn-primary" value="Submit">
+         </form>
+ </div>
+{% endblock %}

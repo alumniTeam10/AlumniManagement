@@ -1,0 +1,99 @@
+{% extends './codes_edited.html' %}
+
+{% block content %}
+
+{#    <form action="{% url 'search' %}" method="get" style="margin: 0" class="navbar-form navbar-right">#}
+{#            <div class="form-group">#}
+{#                <input  id="search_box" type="text" name="search_box"  placeholder="Search..." class="form-control" >#}
+{#            </div>#}
+{#            <button id="search_submit" type="submit" class="btn btn-default">Submit</button>#}
+{#    </form>#}
+
+    {% if opportunities %}
+        <div class="container">
+            <table class="table table-hover table-bordered">
+                <div>
+                    {%  for opportunity in opportunities %}
+                        <tr>
+                            <td class="col-sm-3 text-info" rowspan="4">
+                                    <p>
+                                        <h5>{{ opportunity.opportunity_info }}</h5>
+                                    </p>
+                            </td>
+
+                            <td class="text-info">
+                                <p>
+                                    <h5>
+                                        Number of Vacancy -
+                                        {% if opportunity.number_of_vacancy != 0 %}
+                                            {{ opportunity.number_of_vacancy }}
+                                        {% else %}
+                                            N/A
+                                        {% endif %}
+                                    </h5>
+                                </p>
+                            </td>
+
+                            <td rowspan="1" class="fa-align-center">
+                                <form action="{% url 'viewOpportunity' opportunity.id %}" method="get" style="margin: 0" class="form-group">
+                                    <button id="search_submit" type="submit" class="btn btn-info">View</button>
+                                </form>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-info">
+                                <p>
+                                    <h5>
+                                        Expiration Date -
+                                        {% if opportunity.expiration_date  %}
+                                            {{ opportunity.expiration_date }}
+                                        {% else %}
+                                            N/A
+                                        {% endif %}
+                                    </h5>
+                                </p>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-info">
+                                <h5>
+                                    Posted by
+                                    {{ opportunity.posted_by.first_name }}
+                                    {{ opportunity.posted_by.last_name }}
+                                </h5>
+                            </td>
+
+                            <td rowspan="1" class="fa-align-center">
+                                {% if request.user.pk == opportunity.posted_by.pk %}
+                                    <form action="{% url 'deleteOpportunity' opportunity.id %}" method="get" style="margin: 0" class="form-group">
+                                        <button id="search_submit" type="submit" class="btn btn-info">Delete</button>
+                                    </form>
+                                {% endif %}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="text-info">
+                                <p>
+                                    <h5>
+                                            Emaild-Id -
+                                            {{ opportunity.posted_by.email }}
+                                    </h5>
+                                </p>
+                            </td>
+                        </tr>
+                        </div>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <h4>Keep visiting as of now no opportunities are posted</h4>
+    {% endif %}
+
+
+
+{% endblock %}

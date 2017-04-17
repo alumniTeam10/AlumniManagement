@@ -1,0 +1,98 @@
+{% extends './codes_edited.html' %}
+
+{% block content %}
+
+
+    <div>
+        <h2 class="tittle text-center text-primary">Complaints</h2>
+    </div>
+
+    <div style="margin-bottom: 1%">
+        <form action="{% url 'Complaintsearch' %}" method="get" class="navbar-form navbar-right">
+            <div class="form-group">
+                <input  id="search_box" type="text" name="search_box"  placeholder="Search..." class="form-control" >
+            </div>
+            <button id="search_submit" type="submit" class="btn btn-default">Submit</button>
+        </form>
+    </div>
+
+
+    {% if complaints %}
+        <div class="container">
+            <table class="table table-hover table-bordered">
+                <div>
+                    {%  for complaint in complaints %}
+                        <tr>
+                            <td class="col-sm-3 text-info">
+                                    <p>
+                                        <h5>{{ complaint.complaint_info }}</h5>
+                                    </p>
+                            </td>
+
+                            <td class="text-info">
+                                <p>
+                                    <h5>
+                                <b class="text-primary">Created By - </b>
+                                        {% if complaint.created_by %}
+                                            {{ complaint.created_by }}
+                                        {% else %}
+                                            N/A
+                                        {% endif %}
+                                    </h5>
+                                </p>
+
+                                <br>
+
+                                <p>
+                                    <h5>
+                                <b class="text-primary">Created Date - </b>
+                                        {% if complaint.created_date  %}
+                                            {{ complaint.created_date }}
+                                        {% else %}
+                                            N/A
+                                        {% endif %}
+                                    </h5>
+                                </p>
+
+                                <br>
+
+                                <h5>
+                                    <b class="text-primary">Solution Info - </b>
+                                    {{ complaint.solution_info }}
+                                </h5>
+
+                                <br>
+                            </td>
+
+                            <td >
+                                <div>
+                                    <form action="{% url 'viewComplaint' complaint.id %}" method="get"  class="col-xs-2">
+                                        <button id="search_submit" type="submit" class="btn btn-info">View</button>
+                                    </form>
+
+                                    {% if request.user.pk == complaint.created_by.pk  or request.user.user_type_flag == 'admin'%}
+                                        <form action="{% url 'updateComplaint' complaint.id %}" method="get"  class="col-xs-2">
+                                            <button id="edit_submit" type="submit" class="btn btn-info">Edit</button>
+                                        </form>
+                                        <form action="{% url 'deleteComplaint' complaint.id %}" method="get"  class="col-xs-2">
+                                            <button id="delete_submit" type="submit" class="btn btn-info">Delete</button>
+                                        </form>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+
+
+                        </div>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <h4>No complaints to show</h4>
+    {% endif %}
+
+
+
+{% endblock %}
